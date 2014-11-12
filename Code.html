@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="myCanvas" width="800" height="800" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas><br>
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var z=0;
+x2=100;y2=600;
+x3=700;y3=600;
+x1=400;y1=80;
+ctx.moveTo(x1,y1);
+ctx.lineTo(x2,y2);
+ctx.stroke();
+ctx.moveTo(x1,y1);
+ctx.lineTo(x3,y3);
+ctx.stroke();
+ctx.moveTo(x2,y2);
+ctx.lineTo(x3,y3);
+ctx.stroke();
+a1=(x2-x1)/2 + x1;
+b1=(y2-y1)/2 + y1;
+a2=(x3-x1)/2 + x1;
+b2=(y3-y1)/2 + y1;
+a3=(x3-x2)/2 + x2;
+b3=y3;
+build(a1,b1,a2,b2,a3,b3);
+recur(a1,b1,a2,b2,a3,b3,x1,y1,x2,y2,x3,y3,1);
+function neg(a)
+{
+if(a<0)
+return (a*(-1));
+else return a;
+}
+function build(x1,y1,x2,y2,x3,y3){
+ctx.moveTo(x1,y1);
+ctx.lineTo(x2,y2);
+ctx.stroke();
+ctx.moveTo(x1,y1);
+ctx.lineTo(x3,y3);
+ctx.stroke();
+ctx.moveTo(x2,y2);
+ctx.lineTo(x3,y3);
+ctx.stroke();
+}
+function recur(x1,y1,x2,y2,x3,y3,i1,j1,i2,j2,i3,j3,z){
+if(z==7)
+return;
+var x=[];
+x[0] = a1 = (neg(i1-x1))/2 + x1; x[1] = b1 = (neg(y1-j1))/2+j1;
+x[2] = a2 = (neg(x2-i1))/2 + i1; x[3] = b2 = b1;
+x[4] = a3 = (neg(x2-x1))/2 + x1; x[5] = b3 = y1;
+build(a1,b1,a2,b2,a3,b3);
+x[6] = a1 = (neg(x1-i2))/2 + i2; x[7] = b1 = (neg(j2-y1))/2 + y1;
+x[8] = a2 = (neg(x3-x1))/2 + x1; x[9] = b2 = b1;
+x[10] = a3 = (neg(x3-i2))/2 + i2; x[11] = b3 = y3;
+build(a1,b1,a2,b2,a3,b3);
+x[12] = a1 = (neg(x2-x3))/2 + x3; x[13] = b1 = (neg(j3-y2))/2+y2;
+x[14] = a2 = (neg(i3-x2))/2 + x2; x[15] = b2 = b1;
+x[16] = a3 = (neg(i3-x3))/2 + x3; x[17] = b3 = y3;
+build(a1,b1,a2,b2,a3,b3);
+//////////////////////// "RECURSION" /////////////////////////////
+// a1 = (neg(i1-x1))/2 + x1; b1 = (neg(y1-j1))/2+j1;
+// a2 = (neg(x2-i1))/2 + i1; b2 = b1;
+// a3 = (neg(x2-x1))/2 + x1; b3 = y1;
+//recur(a1,b1,a2,b2,a3,b3,i1,j1,x1,y1,x2,y2,z+1);
+recur(x[0],x[1],x[2],x[3],x[4],x[5],i1,j1,x1,y1,x2,y2,z+1);
+// a1 = (neg(x1-i2))/2 + i2; b1 = (neg(j2-y1))/2 + y1;
+// a2 = (neg(x3-x1))/2 + x1; b2 = b1;
+// a3 = (neg(x3-i2))/2 + i2; b3 = y3;
+//recur(a1,b1,a2,b2,a3,b3,x1,y1,i2,j2,x3,y3,z+1);
+recur(x[6],x[7],x[8],x[9],x[10],x[11],x1,y1,i2,j2,x3,y3,z+1)
+// a1 = (neg(x2-x3))/2 + x3; b1 = (neg(j3-y2))/2+y2;
+// a2 = (neg(i3-x2))/2 + x2; b2 = b1;
+// a3 = (neg(i3-x3))/2 + x3; b3 = y3;
+//recur(a1,b1,a2,b2,a3,b3,x2,y2,x3,y3,i3,j3,z+1);
+recur(x[12],x[13],x[14],x[15],x[16],x[17],x2,y2,x3,y3,i3,j3,z+1);
+}
+</script>
+</body>
+</html>
